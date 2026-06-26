@@ -9,9 +9,19 @@ export default class SaveUser {
       console.log(error);
     }
   }
-  static async saveUser(uid: string, email: string, name: string) {
+  static async saveUser(
+    uid: string,
+    email: string,
+    name: string,
+    address: string,
+  ) {
     try {
-      const user = await User.create({ uid: uid, email: email, name: name });
+      const user = await User.create({
+        uid: uid,
+        email: email,
+        name: name,
+        address: address,
+      });
       await user.save();
       return user;
     } catch (error) {

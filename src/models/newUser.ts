@@ -2,17 +2,24 @@ import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../dbs/sequelize.js";
 
 export default class User extends Model {
+  declare id: number;
   declare uid: string;
   declare email: string;
   declare name: string;
+  declare address: string;
 }
 
 User.init(
   {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     uid: {
       type: DataTypes.STRING,
       allowNull: false,
-      primaryKey: true,
     },
     email: {
       type: DataTypes.STRING,
@@ -21,6 +28,9 @@ User.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    address: {
+      type: DataTypes.STRING,
     },
   },
   {

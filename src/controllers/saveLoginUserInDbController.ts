@@ -7,12 +7,14 @@ export default class SaveUserDb {
       let uid = req.user.uid;
       let email = req.user.email;
       let name = "chirantan";
+      let address = req.body;
+
       let find = await SaveUser.find(uid);
 
       if (find) {
         return res.send({ message: "the user is alredy exist dont save it " });
       }
-      let user = await SaveUser.saveUser(uid, email!, name);
+      let user = await SaveUser.saveUser(uid, email!, name, address);
 
       res.json(user);
     } catch (error) {
