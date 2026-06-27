@@ -22,7 +22,7 @@ export default async function companyMid(
   next: NextFunction,
 ) {
   let id = req.params.id;
-  let Ownerid=req.params.uid
+  let Ownerid = req.params.uid;
 
   await getauth.setCustomUserClaims(req.user.uid, {
     companyId: id,
