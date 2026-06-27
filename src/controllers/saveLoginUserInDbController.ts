@@ -6,8 +6,8 @@ export default class SaveUserDb {
     try {
       let uid = req.user.uid;
       let email = req.user.email;
-      let name = "chirantan";
-      let address = req.body;
+      let { name } = req.body;
+      let { address } = req.body;
 
       let find = await SaveUser.find(uid);
 

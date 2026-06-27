@@ -6,6 +6,7 @@ interface User {
   email?: string;
   name?: string;
   address?: string;
+  companyId?: string;
 }
 
 declare global {
@@ -22,6 +23,7 @@ export default async function verify(
   next: NextFunction,
 ) {
   try {
+    console.log(req.body);
     let tokenn = req.headers.authorization;
     let token = tokenn?.split(" ")[1];
 

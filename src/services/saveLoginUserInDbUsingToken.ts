@@ -3,7 +3,7 @@ import User from "../models/newUser.js";
 export default class SaveUser {
   static async find(uid: string) {
     try {
-      const find = await User.findByPk(uid);
+      const find = await User.findOne({ where: { uid } });
       return find;
     } catch (error) {
       console.log(error);

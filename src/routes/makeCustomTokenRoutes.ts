@@ -5,3 +5,4 @@ let tokenRouter = express.Router();
 
 tokenRouter.post("/customToken/:uid", CustomTokenController.token);
 export default tokenRouter;
+
