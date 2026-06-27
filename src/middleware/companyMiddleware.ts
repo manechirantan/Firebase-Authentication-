@@ -1,5 +1,20 @@
 import { getauth } from "../config/firebaseAdminSdk.js";
 import { Request, Response, NextFunction } from "express";
+import Company from "../models/companyModel.js";
+
+interface Companyy {
+  name: string;
+  address: string;
+  id: number;
+}
+
+declare global {
+  namespace Express {
+    interface Request {
+      company: Companyy;
+    }
+  }
+}
 
 export default async function companyMid(
   req: Request,
@@ -7,10 +22,19 @@ export default async function companyMid(
   next: NextFunction,
 ) {
   let id = req.params.id;
+  let Ownerid=req.params.uid
 
-  let token = await getauth.setCustomUserClaims(req.user.uid, {
+  await getauth.setCustomUserClaims(req.user.uid, {
     companyId: id,
   });
-  console.log(token);
+
+  let company = await Company.findOne({ where: { id, Ownerid } });
+  if (!company) {
+    return res.send({
+      message: "Company not found",
+    });
+  }
+  req.company = company;
+  console.log(req.company);
   next();
 }

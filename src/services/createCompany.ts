@@ -1,11 +1,7 @@
 import Company from "../models/companyModel.js";
 
 export default class CreateCompany {
-  static async createCompany(
-    name: string,
-    address: string,
-    Ownerid: number,
-  ) {
+  static async createCompany(name: string, address: string, Ownerid: number) {
     try {
       let company = await Company.create({ name, address, Ownerid });
       await company.save();

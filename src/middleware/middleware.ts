@@ -23,7 +23,6 @@ export default async function verify(
   next: NextFunction,
 ) {
   try {
-    console.log(req.body);
     let tokenn = req.headers.authorization;
     let token = tokenn?.split(" ")[1];
 
@@ -37,6 +36,6 @@ export default async function verify(
 
     next();
   } catch (error: any) {
-    return res.json({ error });
+    return res.json({ message:"not authorised" });
   }
 }

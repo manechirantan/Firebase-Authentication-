@@ -16,7 +16,7 @@ userRoute.post("/users/:id", UpdateUserDb.updateUserDb);
 userRoute.post("/users/createcom/:id", CreateCompanyDb.createCompanyDb);
 userRoute.get("/users", SeeUserDb.seeUserDb);
 userRoute.post(
-  "/users/selectcompany/:id",
+  "/users/selectcompany/:uid/:id",
   companyMid,
   SeeCompanyDb.seeCompanyDb,
 );
