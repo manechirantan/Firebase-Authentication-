@@ -5,6 +5,7 @@ import SeeUserDb from "../controllers/getUsersController.js";
 import companyMid from "../middleware/companyMiddleware.js";
 import SeeCompanyDb from "../controllers/selectCompanyContoller.js";
 import CreateCompanyDb from "../controllers/createCompanyController.js";
+import UpdateCompanyDb from "../controllers/updateCompanyController.js";
 import express from "express";
 
 let userRoute = express.Router();
@@ -14,7 +15,10 @@ userRoute.use(verify);
 userRoute.post("/saveuser", SaveUserDb.saveUserDb);
 userRoute.post("/users/:id", UpdateUserDb.updateUserDb);
 userRoute.post("/users/createcom/:id", CreateCompanyDb.createCompanyDb);
+
 userRoute.get("/users", SeeUserDb.seeUserDb);
+userRoute.patch("/users/selectcompany/update", UpdateCompanyDb.updateCompanyDb);
+
 userRoute.post(
   "/users/selectcompany/:uid/:id",
   companyMid,

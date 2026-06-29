@@ -7,6 +7,7 @@ interface User {
   name?: string;
   address?: string;
   companyId?: string;
+  id?: string;
 }
 
 declare global {
@@ -33,9 +34,9 @@ export default async function verify(
     const decoded = await getauth.verifyIdToken(token);
 
     req.user = decoded;
-
+    // console.log(req.user);
     next();
   } catch (error: any) {
-    return res.json({ message:"not authorised" });
+    return res.json({ message: "not authorised" });
   }
 }

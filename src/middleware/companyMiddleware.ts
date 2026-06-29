@@ -6,6 +6,7 @@ interface Companyy {
   name: string;
   address: string;
   id: number;
+  Ownerid: number;
 }
 
 declare global {
@@ -26,6 +27,7 @@ export default async function companyMid(
 
   await getauth.setCustomUserClaims(req.user.uid, {
     companyId: id,
+    id: Ownerid,
   });
 
   let company = await Company.findOne({ where: { id, Ownerid } });
@@ -35,6 +37,5 @@ export default async function companyMid(
     });
   }
   req.company = company;
-  console.log(req.company);
   next();
 }
