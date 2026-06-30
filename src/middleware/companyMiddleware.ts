@@ -13,6 +13,7 @@ declare global {
   namespace Express {
     interface Request {
       company: Companyy;
+      token: string;
     }
   }
 }
@@ -25,7 +26,7 @@ export default async function companyMid(
   let id = req.params.id;
   let Ownerid = req.params.uid;
 
-  await getauth.setCustomUserClaims(req.user.uid, {
+  let token = await getauth.createCustomToken(req.user.uid, {
     companyId: id,
     id: Ownerid,
   });
@@ -36,6 +37,9 @@ export default async function companyMid(
       message: "Company not found",
     });
   }
+
   req.company = company;
+
+  req.token = token;
   next();
 }
