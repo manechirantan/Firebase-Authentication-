@@ -17,31 +17,43 @@ export class CreateCompany {
     address2?: string,
   ) {
     try {
-      let company = await Company.create({
-        name,
-        dateOfIncorporation,
-        address,
-        state,
-        gstNumber,
-        description,
-        pincode,
-        Ownerid,
+      let [company, comCreated] = await Company.findOrCreate({
+        where: {
+          name,
+          Ownerid,
+        },
+        defaults: {
+          name,
+          dateOfIncorporation,
+          address,
+          state,
+          gstNumber,
+          description,
+          pincode,
+          Ownerid,
+        },
       });
       //database company is created
       //compay.id
       //create location, state, address,gstnumber,pincode, companyId
       let companyId = company.id;
       let system = true;
-      let locat = await Location.create({
-        location,
-        system,
-        gstNumber,
-        pincode,
-        address2,
-        companyId,
+      let [locat, locationCreate] = await Location.findOrCreate({
+        where: {
+          location,
+          companyId,
+        },
+        defaults: {
+          location,
+          system,
+          gstNumber,
+          pincode,
+          address2,
+          companyId,
+        },
       });
       console.log(company);
-      return { company, locat };
+      return { company, locat, comCreated, locationCreate };
     } catch (error) {
       throw error;
     }

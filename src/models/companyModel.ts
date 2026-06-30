@@ -26,7 +26,7 @@ Company.init(
       type: DataTypes.STRING,
     },
     dateOfIncorporation: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DATEONLY,
     },
     address: {
       type: DataTypes.STRING,

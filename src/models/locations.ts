@@ -29,15 +29,15 @@ Location.init(
     },
     gstNumber: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     pincode: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     address2: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     companyId: {
       type: DataTypes.INTEGER,

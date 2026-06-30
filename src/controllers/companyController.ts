@@ -34,18 +34,25 @@ export class CreateCompanyDb {
       } = req.body;
 
       console.log(user, "What is the user here");
-      let { company, locat } = await CreateCompany.createCompany(
-        name,
-        dateOfIncorporation,
-        address,
-        state,
-        gstNumber,
-        description,
-        pincode,
-        Ownerid,
-        location,
-        address2,
-      );
+      let { company, locat, comCreated, locationCreate } =
+        await CreateCompany.createCompany(
+          name,
+          dateOfIncorporation,
+          address,
+          state,
+          gstNumber,
+          description,
+          pincode,
+          Ownerid,
+          location,
+          address2,
+        );
+      console.log(comCreated, locationCreate);
+      if (!comCreated || !locationCreate) {
+        return res.json({
+          message: "Company or location already exists",
+        });
+      }
       res.send({ locat, company });
     } catch (error) {
       return res.send(error);
