@@ -9,7 +9,7 @@ export default async function loadRoutes(app: Application) {
   app.use("/", tokenRouter);
   app.use("/", userRoute);
   app.use("/", companyRouter);
-  app.use("/", companyRouter);
+  app.use("/", locationRouter);
   app.listen(3000, () => {
     console.log("server started");
   });
