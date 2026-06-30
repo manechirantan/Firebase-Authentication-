@@ -8,6 +8,7 @@ interface User {
   address?: string;
   companyId?: string;
   id?: string;
+  locationId?: string;
 }
 
 declare global {
@@ -28,7 +29,7 @@ export default async function verify(
     let token = tokenn?.split(" ")[1];
 
     if (!token) {
-      return res.json({ error: "not Authorised" });
+      return res.json({ error: "Not Authorised" });
     }
 
     const decoded = await getauth.verifyIdToken(token);

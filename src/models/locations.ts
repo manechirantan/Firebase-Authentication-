@@ -43,4 +43,3 @@ Location.belongsTo(Company, {
 Company.hasMany(Location, {
   foreignKey: "companyId",
 });
-
