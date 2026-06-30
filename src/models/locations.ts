@@ -5,7 +5,10 @@ import Company from "./companyModel.js";
 export default class Location extends Model {
   declare id: number;
   declare location: string;
-  declare default: boolean;
+  declare system: boolean;
+  declare gstNumber?: string;
+  declare pincode?: number;
+  declare address2: string;
   declare companyId: number;
 }
 
@@ -21,8 +24,20 @@ Location.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    default: {
+    system: {
       type: DataTypes.BOOLEAN,
+    },
+    gstNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    pincode: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    address2: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     companyId: {
       type: DataTypes.INTEGER,

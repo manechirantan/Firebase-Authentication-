@@ -6,7 +6,12 @@ import User from "./newUser.js";
 export default class Company extends Model {
   declare id: number;
   declare name: string;
+  declare dateOfIncorporation: string;
   declare address: string;
+  declare state: string;
+  declare gstNumber?: string;
+  declare description?: string;
+  declare pincode?: number;
   declare Ownerid: number;
 }
 
@@ -20,9 +25,28 @@ Company.init(
     name: {
       type: DataTypes.STRING,
     },
+    dateOfIncorporation: {
+      type: DataTypes.INTEGER,
+    },
     address: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    gstNumber: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    pincode: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
     Ownerid: {
       type: DataTypes.INTEGER,

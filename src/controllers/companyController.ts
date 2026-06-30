@@ -1,19 +1,52 @@
 import { CreateCompany } from "../services/companyServices.js";
 import { UpdateCompany } from "../services/companyServices.js";
 import { Request, Response } from "express";
+import User from "../models/newUser.js";
 
 // to create the company by the logged in user
 export class CreateCompanyDb {
   static async createCompanyDb(req: Request, res: Response) {
     try {
-      let { id } = req.params;
-      let { name, address } = req.body;
-      let company = await CreateCompany.createCompany(
+      let uid = req.user.uid;
+      console.log(uid);
+      let user = await User.findOne({
+        where: {
+          uid,
+        },
+      });
+      if (!user) {
+        return res.json({
+          message: "User not found",
+        });
+      }
+      console.log(user);
+      let Ownerid = user.id;
+      const {
         name,
+        dateOfIncorporation,
         address,
-        Number(id),
+        state,
+        gstNumber,
+        description,
+        pincode,
+        location,
+        address2,
+      } = req.body;
+
+      console.log(user, "What is the user here");
+      let { company, locat } = await CreateCompany.createCompany(
+        name,
+        dateOfIncorporation,
+        address,
+        state,
+        gstNumber,
+        description,
+        pincode,
+        Ownerid,
+        location,
+        address2,
       );
-      res.send(company);
+      res.send({ locat, company });
     } catch (error) {
       return res.send(error);
     }

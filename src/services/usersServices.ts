@@ -42,7 +42,7 @@ export class SeeUser {
 
 // to update the user information
 
-export  class UpdateUser {
+export class UpdateUser {
   static async updateuser(uid: number, address: string) {
     try {
       let user = await User.update({ address }, { where: { uid } });

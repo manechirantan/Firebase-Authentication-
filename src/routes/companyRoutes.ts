@@ -11,7 +11,7 @@ import companyMid from "../middleware/companyMiddleware.js";
 let companyRouter = express.Router();
 companyRouter.use(verify);
 
-companyRouter.post("/users/createcom/:id", CreateCompanyDb.createCompanyDb);
+companyRouter.post("/users/createcom", CreateCompanyDb.createCompanyDb);
 
 companyRouter.patch(
   "/users/selectcompany/update",

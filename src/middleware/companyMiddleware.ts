@@ -1,6 +1,8 @@
 import { getauth } from "../config/firebaseAdminSdk.js";
 import { Request, Response, NextFunction } from "express";
 import Company from "../models/companyModel.js";
+import Location from "../models/locations.js";
+import { where } from "sequelize";
 
 interface Companyy {
   name: string;
@@ -26,9 +28,14 @@ export default async function companyMid(
   let id = req.params.id;
   let Ownerid = req.params.uid;
 
+  let location = await Location.findOne({ where: { id } });
+
+  let locationId = location?.id;
+
   let token = await getauth.createCustomToken(req.user.uid, {
     companyId: id,
     id: Ownerid,
+    
   });
 
   let company = await Company.findOne({ where: { id, Ownerid } });
