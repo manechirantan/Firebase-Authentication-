@@ -3,7 +3,6 @@ import User from "../models/newUser.js";
 import Company from "../models/companyModel.js";
 import { getauth } from "../config/firebaseAdminSdk.js";
 
-
 declare global {
   namespace Express {
     interface Request {
@@ -14,7 +13,6 @@ declare global {
 
 async function locationMid(req: Request, res: Response, next: NextFunction) {
   let uid = req.user.uid;
-
   let user = await User.findOne({
     where: {
       uid,
@@ -29,7 +27,7 @@ async function locationMid(req: Request, res: Response, next: NextFunction) {
 
   let Ownerid = user.id;
 
-  let companyId = Number(req.params.id);
+  let companyId = Number(req.user.companyId);
 
   let company = await Company.findOne({
     where: { id: companyId, Ownerid },

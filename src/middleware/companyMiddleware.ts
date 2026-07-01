@@ -11,7 +11,6 @@ interface Companyy {
   Ownerid: number;
 }
 
-
 declare global {
   namespace Express {
     interface Request {
@@ -61,31 +60,30 @@ export default async function companyMid(
     let locations = await Location.findAll({
       where: { companyId },
     });
-    if (locations.length === 0) {
-      return res.json({ message: "not location on this comapny id" });
-    }
 
-    if (locations.length === 1) {
+    if (locations.length === 1 && locations[0].system === true) {
       let token = await getauth.createCustomToken(req.user.uid, {
         companyId: companyId,
         locationId: locations[0].id,
         id: Ownerid,
       });
       req.token = token;
+      req.location = locations;
       console.log(req.token);
     } else {
       let token = await getauth.createCustomToken(req.user.uid, {
         companyId: companyId,
         id: Ownerid,
       });
-      console.log(locations[0]);
       req.location = locations;
       req.token = token;
       console.log(req.token);
     }
     req.company = company;
-    console.log(company);
-    console.log(locations);
+    console.log(company.dataValues);
+    for (let i = 0; i < locations.length; i++) {
+      console.log(locations[i].dataValues);
+    }
     next();
   } catch (error) {
     console.log(error);

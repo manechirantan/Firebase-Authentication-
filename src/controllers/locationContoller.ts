@@ -2,6 +2,7 @@ import { LocationCom } from "../services/locationServices.js";
 import { Request, Response } from "express";
 
 export class locationComDb {
+  // to create new location for the selcted company
   static async locationComDb(req: Request, res: Response) {
     try {
       let companyId = Number(req.user.companyId);
@@ -25,3 +26,4 @@ export class locationComDb {
     }
   }
 }
+
