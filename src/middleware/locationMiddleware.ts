@@ -1,34 +1,53 @@
 import { Request, Response, NextFunction } from "express";
-import Location from "../models/locations.js";
+import User from "../models/newUser.js";
+import Company from "../models/companyModel.js";
 import { getauth } from "../config/firebaseAdminSdk.js";
 
-interface Locationn {
-  id: number;
-  location: string;
-  companyId: number;
-}
 
 declare global {
   namespace Express {
     interface Request {
-      location: Locationn;
+      token: string;
     }
   }
 }
 
 async function locationMid(req: Request, res: Response, next: NextFunction) {
-  let companyId = req.user.companyId;
+  let uid = req.user.uid;
 
-  let location = await Location.findOne({
+  let user = await User.findOne({
     where: {
-      companyId,
+      uid,
     },
   });
-  if (!location) {
-    return;
+
+  if (!user) {
+    return res.json({
+      message: "User not found",
+    });
   }
-  let token = await getauth.createCustomToken(req.user.uid, {
-    companyId,
-    locationId: location.id,
+
+  let Ownerid = user.id;
+
+  let companyId = Number(req.params.id);
+
+  let company = await Company.findOne({
+    where: { id: companyId, Ownerid },
   });
+
+  if (!company) {
+    return res.send({
+      message: "Company not found",
+    });
+  }
+
+  let locationId = req.params;
+
+  let token = await getauth.createCustomToken(req.user.uid, {
+    id: Ownerid,
+    companyId,
+    locationId: locationId,
+  });
+  req.token = token;
+  next();
 }

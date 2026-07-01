@@ -66,13 +66,14 @@ export class SeeCompanyDb {
   static async seeCompanyDb(req: Request, res: Response) {
     try {
       let token = req.token;
+      let locations = req.location;
       let company = {
         name: req.company.name,
         address: req.company.address,
         owerid: req.user.uid,
         namee: req.user.companyId,
       };
-      res.send({ company, token });
+      res.send({ company, locations, token });
     } catch (error) {
       return res.send(error);
     }

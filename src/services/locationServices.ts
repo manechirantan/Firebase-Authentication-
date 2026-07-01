@@ -1,19 +1,31 @@
 import Location from "../models/locations.js";
 
 export class LocationCom {
-  static async locationCom(location: string, def: boolean, companyId: number) {
+  static async locationCom(
+    location: string,
+    companyId: number,
+    gstNumber: number,
+    pincode: number,
+    address2: string,
+  ) {
     try {
-      let [locat, created] = await Location.findOrCreate({
-        where: { companyId, location },
+      let system = false;
+      let [locat, locationCreate] = await Location.findOrCreate({
+        where: {
+          location,
+          companyId,
+        },
         defaults: {
           location,
-          def,
+          system,
+          gstNumber,
+          pincode,
+          address2,
           companyId,
         },
       });
-      return { locat, created };
+      return { locat, locationCreate };
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }

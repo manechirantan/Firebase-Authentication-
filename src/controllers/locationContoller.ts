@@ -4,27 +4,24 @@ import { Request, Response } from "express";
 export class locationComDb {
   static async locationComDb(req: Request, res: Response) {
     try {
-      console.log(req.user.companyId);
-      let { location, def } = req.body;
-      let companyid = Number(req.user.companyId);
+      let companyId = Number(req.user.companyId);
+      let { location, gstNumber, pincode, address2 } = req.body;
 
-      if (!companyid) {
-        return res.json({ error: "company is not selected" });
-      }
-
-      console.log(req.body);
-      const { locat, created } = await LocationCom.locationCom(
+      let { locat, locationCreate } = await LocationCom.locationCom(
         location,
-        def,
-        companyid,
+        companyId,
+        gstNumber,
+        pincode,
+        address2,
       );
-      if (!created) {
-        return res.json("comapny has alerdy on this loaction");
+      if (locationCreate) {
+        return res.json({
+          message: "the comapny at this location has been already created",
+        });
       }
-      console.log(req.body);
       res.json(locat);
     } catch (error) {
-      res.json("company is not selected");
+      return res.json(error);
     }
   }
 }

@@ -19,7 +19,7 @@ companyRouter.patch(
 );
 
 companyRouter.get(
-  "/users/selectcompany/:uid/:id",
+  "/users/selectcompany/:id",
   companyMid,
   SeeCompanyDb.seeCompanyDb,
 );

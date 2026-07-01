@@ -11,4 +11,5 @@ locationRouter.post(
   locationComDb.locationComDb,
 );
 
+
 export default locationRouter;
