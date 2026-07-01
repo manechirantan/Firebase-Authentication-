@@ -71,7 +71,7 @@ export class SeeCompanyDb {
         name: req.company.name,
         address: req.company.address,
         owerid: req.user.uid,
-        namee: req.user.companyId,
+        comapnyid: req.user.companyId,
       };
       res.send({ company, locations, token });
     } catch (error) {

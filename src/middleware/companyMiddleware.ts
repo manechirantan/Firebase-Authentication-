@@ -11,16 +11,12 @@ interface Companyy {
   Ownerid: number;
 }
 
-interface Locationn {
-  id: number;
-  location: string;
-}
 
 declare global {
   namespace Express {
     interface Request {
       company: Companyy;
-      location: Locationn[];
+      location: Location[];
       token: string;
     }
   }
@@ -82,6 +78,7 @@ export default async function companyMid(
         companyId: companyId,
         id: Ownerid,
       });
+      console.log(locations[0]);
       req.location = locations;
       req.token = token;
       console.log(req.token);
