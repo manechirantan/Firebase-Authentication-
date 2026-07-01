@@ -1,10 +1,10 @@
-import { CreateCompany } from "../services/companyServices.js";
-import { UpdateCompany } from "../services/companyServices.js";
+import CompanyService from "../services/companyServices.js";
 import { Request, Response } from "express";
 import User from "../models/newUser.js";
 
-// to create the company by the logged in user
-export class CreateCompanyDb {
+
+export class CompanyController {
+  // to create the company by the logged in user
   static async createCompanyDb(req: Request, res: Response) {
     try {
       let uid = req.user.uid;
@@ -35,7 +35,7 @@ export class CreateCompanyDb {
 
       console.log(user, "What is the user here");
       let { company, locat, comCreated, locationCreate } =
-        await CreateCompany.createCompany(
+        await CompanyService.createCompany(
           name,
           dateOfIncorporation,
           address,
@@ -58,11 +58,8 @@ export class CreateCompanyDb {
       return res.send(error);
     }
   }
-}
 
-// to select the company by the logged in users
-
-export class SeeCompanyDb {
+  // to select the company by the logged in users
   static async seeCompanyDb(req: Request, res: Response) {
     try {
       let token = req.token;
@@ -78,18 +75,14 @@ export class SeeCompanyDb {
       return res.send(error);
     }
   }
-}
-
-// to update the company details
-
-export class UpdateCompanyDb {
+  // to update the company details
   static async updateCompanyDb(req: Request, res: Response) {
     try {
       let { name, address } = req.body;
       let Ownerid = req.user.id;
       let id = req.user.companyId;
 
-      let company = await UpdateCompany.updateCompany(
+      let company = await CompanyService.updateCompany(
         name,
         address,
         Number(Ownerid),

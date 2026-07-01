@@ -3,7 +3,7 @@ import Company from "../models/companyModel.js";
 import Location from "../models/locations.js";
 
 // to create company by the logged in user
-export class CreateCompany {
+export default class CompanyService {
   static async createCompany(
     name: string,
     dateOfIncorporation: string,
@@ -58,11 +58,9 @@ export class CreateCompany {
       throw error;
     }
   }
-}
 
-// to update company by the logged in user
+  // to update company by the logged in user
 
-export class UpdateCompany {
   static async updateCompany(
     name: string,
     address: string,
