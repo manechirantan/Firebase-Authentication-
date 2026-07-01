@@ -12,7 +12,7 @@ let locationRouter = express.Router();
 locationRouter.use(verify);
 
 locationRouter.post(
-  "/users/selectcompany/location",
+  "/users/selectcompany/addlocation",
   locationComDb.locationComDb,
 );
 
