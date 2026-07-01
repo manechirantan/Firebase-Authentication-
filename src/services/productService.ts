@@ -25,4 +25,16 @@ export default class ProductService {
       throw error;
     }
   }
+
+  // to see the products from the selcted location
+
+  static async seeProduct(locationId: number) {
+    try {
+      let product = await Product.findAll({ where: { locationId } });
+      return product;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
 }

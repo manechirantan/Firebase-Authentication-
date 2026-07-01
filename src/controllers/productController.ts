@@ -2,6 +2,8 @@ import ProductService from "../services/productService.js";
 import { Request, Response } from "express";
 
 export default class ProductController {
+  // to create the product on the selected location
+
   static async createProductDb(req: Request, res: Response) {
     try {
       let locationId = Number(req.user.locationId);
@@ -19,6 +21,18 @@ export default class ProductController {
       res.json(product);
     } catch (error) {
       res.json(error);
+    }
+  }
+
+  // to see all the products added on the selected location id
+
+  static async seeProductDb(req: Request, res: Response) {
+    try {
+      let locationId = Number(req.user.locationId);
+      let product = await ProductService.seeProduct(locationId);
+      res.json(product);
+    } catch (error) {
+      return res.json(error);
     }
   }
 }

@@ -7,4 +7,6 @@ productRouter.use(verify);
 
 productRouter.post("/users/product/create", ProductController.createProductDb);
 
+productRouter.get("/users/product/see", ProductController.seeProductDb);
+
 export default productRouter;
