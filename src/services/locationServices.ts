@@ -30,3 +30,17 @@ export class LocationCom {
     }
   }
 }
+
+export class LocationSelect {
+  static async locationSelect(id: number, companyId: number) {
+    try {
+      let locat = await Location.findOne({
+        where: { id, companyId },
+      });
+      return locat;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+}

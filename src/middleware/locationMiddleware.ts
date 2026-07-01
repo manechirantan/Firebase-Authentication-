@@ -11,41 +11,50 @@ declare global {
   }
 }
 
-async function locationMid(req: Request, res: Response, next: NextFunction) {
-  let uid = req.user.uid;
-  let user = await User.findOne({
-    where: {
-      uid,
-    },
-  });
-
-  if (!user) {
-    return res.json({
-      message: "User not found",
+export default async function locationMid(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  console.log("location middleare is runnig");
+  try {
+    let uid = req.user.uid;
+    let user = await User.findOne({
+      where: {
+        uid,
+      },
     });
-  }
 
-  let Ownerid = user.id;
+    if (!user) {
+      return res.json({
+        message: "User not found",
+      });
+    }
 
-  let companyId = Number(req.user.companyId);
+    let Ownerid = user.id;
 
-  let company = await Company.findOne({
-    where: { id: companyId, Ownerid },
-  });
+    let companyId = Number(req.user.companyId);
 
-  if (!company) {
-    return res.send({
-      message: "Company not found",
+    let company = await Company.findOne({
+      where: { id: companyId, Ownerid },
     });
+
+    if (!company) {
+      return res.send({
+        message: "Company not found",
+      });
+    }
+
+    let id = Number(req.params.id);
+    console.log(id);
+    let token = await getauth.createCustomToken(req.user.uid, {
+      id: Ownerid,
+      companyId,
+      locationId: id,
+    });
+    req.token = token;
+    next();
+  } catch (error) {
+    console.log(error);
   }
-
-  let locationId = req.params;
-
-  let token = await getauth.createCustomToken(req.user.uid, {
-    id: Ownerid,
-    companyId,
-    locationId: locationId,
-  });
-  req.token = token;
-  next();
 }

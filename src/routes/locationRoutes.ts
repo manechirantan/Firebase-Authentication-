@@ -1,4 +1,9 @@
-import { locationComDb } from "../controllers/locationContoller.js";
+import {
+  locationComDb,
+  LocationSelectDb,
+} from "../controllers/locationContoller.js";
+
+import locationMid from "../middleware/locationMiddleware.js";
 import verify from "../middleware/middleware.js";
 import express from "express";
 
@@ -11,5 +16,10 @@ locationRouter.post(
   locationComDb.locationComDb,
 );
 
+locationRouter.get(
+  "/users/selectlocation/:id",
+  locationMid,
+  LocationSelectDb.locationSelectDb,
+);
 
 export default locationRouter;
