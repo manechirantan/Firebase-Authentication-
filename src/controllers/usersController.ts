@@ -1,53 +1,48 @@
-import { SeeUser, SaveUser, UpdateUser } from "../services/usersServices.js";
+import UserService from "../services/usersServices.js";
 import { Request, Response } from "express";
 
-// to create or save user in database using the firebase IDtoken
-
-export class SaveUserDb {
+export default class UserController {
+  // to create or save user in database using the firebase IDtoken
   static async saveUserDb(req: Request, res: Response) {
     try {
       let uid = req.user.uid;
       let email = req.user.email;
-      let { name } = req.body;
-      let { address } = req.body;
+      let { name, address } = req.body;
+      let { user, createdUser } = await UserService.saveUser(
+        uid,
+        email!,
+        name,
+        address,
+      );
 
-      let find = await SaveUser.find(uid);
-
-      if (find) {
-        return res.send({ message: "the user is alredy exist dont save it " });
+      if (!createdUser) {
+        return res.json({ message: "this user has been already created" });
       }
-      let user = await SaveUser.saveUser(uid, email!, name, address);
 
       res.json(user);
     } catch (error) {
       return res.json(error);
     }
   }
-}
-
-// to see all the users in the website
-
-export class SeeUserDb {
+  // to see all the users in the website
   static async seeUserDb(req: Request, res: Response) {
     try {
-      let users = await SeeUser.seeUser();
+      let users = await UserService.seeUser();
       res.send(users);
     } catch (error) {
       return res.send(error);
     }
   }
-}
 
-// to update the user information
+  //to update the user information
 
-export class UpdateUserDb {
   static async updateUserDb(req: Request, res: Response) {
     try {
       let id = req.user.uid;
       console.log(req.user.uid);
       console.log(req.user);
       let { address } = req.body;
-      let user = await UpdateUser.updateuser(address, id);
+      let user = await UserService.updateuser(address, id);
       res.send(user);
       return user;
     } catch (error) {

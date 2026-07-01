@@ -1,15 +1,7 @@
 import User from "../models/newUser.js";
 
-// to create or save user in database using the firebase IDtoken
-export class SaveUser {
-  static async find(uid: string) {
-    try {
-      const find = await User.findOne({ where: { uid } });
-      return find;
-    } catch (error) {
-      console.log(error);
-    }
-  }
+export default class UserService {
+  // to create or save user in database using the firebase IDtoken
   static async saveUser(
     uid: string,
     email: string,
@@ -17,32 +9,32 @@ export class SaveUser {
     address: string,
   ) {
     try {
-      const user = await User.create({
-        uid: uid,
-        email: email,
-        name: name,
-        address: address,
+      const [user, createdUser] = await User.findOrCreate({
+        where: {
+          uid,
+          name,
+        },
+        defaults: {
+          uid: uid,
+          email: email,
+          name: name,
+          address: address,
+        },
       });
-      await user.save();
-      return user;
+      return { user, createdUser };
     } catch (error) {
       console.log(error);
+      throw error;
     }
   }
-}
 
-// to see all the users in the website
-
-export class SeeUser {
+  // to see all the users in the website
   static async seeUser() {
     let user = await User.findAll();
     return user;
   }
-}
+  // to update the user information
 
-// to update the user information
-
-export class UpdateUser {
   static async updateuser(uid: number, address: string) {
     try {
       let user = await User.update({ address }, { where: { uid } });

@@ -1,15 +1,14 @@
-import { LocationCom } from "../services/locationServices.js";
-import { LocationSelect } from "../services/locationServices.js";
+import LocationService from "../services/locationServices.js";
 import { Request, Response } from "express";
 
-export class locationComDb {
+export default class LocationController {
   // to create new location for the selcted company
-  static async locationComDb(req: Request, res: Response) {
+  static async locationCreateDb(req: Request, res: Response) {
     try {
       let companyId = Number(req.user.companyId);
       let { location, gstNumber, pincode, address2 } = req.body;
 
-      let { locat, locationCreate } = await LocationCom.locationCom(
+      let { locat, locationCreate } = await LocationService.locationCreate(
         location,
         companyId,
         gstNumber,
@@ -28,11 +27,7 @@ export class locationComDb {
       });
     }
   }
-}
-
-// to show and select the location is selected
-
-export class LocationSelectDb {
+  // to show and select the location is selected
   static async locationSelectDb(req: Request, res: Response) {
     try {
       console.log("hello from location controller");
@@ -40,7 +35,7 @@ export class LocationSelectDb {
       let id = Number(req.params.id);
       console.log(id);
       let companyId = Number(req.user.companyId);
-      let location = await LocationSelect.locationSelect(id, companyId);
+      let location = await LocationService.locationSelect(id, companyId);
       console.log(location);
       console.log(token);
       res.send({ location, token });

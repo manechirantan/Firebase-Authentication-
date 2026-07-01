@@ -1,7 +1,9 @@
 import Location from "../models/locations.js";
 
-export class LocationCom {
-  static async locationCom(
+export default class LocationService {
+  
+  // to create location from the selcted company
+  static async locationCreate(
     location: string,
     companyId: number,
     gstNumber: number,
@@ -29,9 +31,8 @@ export class LocationCom {
       throw error;
     }
   }
-}
 
-export class LocationSelect {
+  // to select the locations of the company
   static async locationSelect(id: number, companyId: number) {
     try {
       let locat = await Location.findOne({
