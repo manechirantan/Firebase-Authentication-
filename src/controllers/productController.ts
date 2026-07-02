@@ -7,6 +7,9 @@ export default class ProductController {
   static async createProductDb(req: Request, res: Response) {
     try {
       let locationId = Number(req.user.locationId);
+      if (!locationId) {
+        return res.json({ message: "please selcet the comapny and location " });
+      }
       let { productName, price } = req.body;
       let { product, createdProduct } = await ProductService.createProduct(
         productName,
@@ -29,6 +32,10 @@ export default class ProductController {
   static async seeProductDb(req: Request, res: Response) {
     try {
       let locationId = Number(req.user.locationId);
+
+      if (!locationId) {
+        return res.json({ message: "please selcet the comapny and location " });
+      }
       let product = await ProductService.seeProduct(locationId);
       res.json(product);
     } catch (error) {
