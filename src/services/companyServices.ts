@@ -1,4 +1,3 @@
-import companyMid from "../middleware/companyMiddleware.js";
 import Company from "../models/companyModel.js";
 import Location from "../models/locations.js";
 
