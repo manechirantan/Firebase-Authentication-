@@ -2,6 +2,7 @@ import Company from "../models/companyModel.js";
 import Location from "../models/locations.js";
 import User from "../models/newUser.js";
 
+
 // to create company by the logged in user
 export default class CompanyService {
   static async createCompany(
