@@ -88,4 +88,5 @@ export default async function companyMid(
   } catch (error) {
     console.log(error);
   }
-}
+}  
+   

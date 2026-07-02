@@ -1,4 +1,4 @@
-import CustomTokenController from "../controllers/makeCustomTokenController.js";
+import CustomTokenController from "../controllers/customTokenController.js";
 import express from "express";
 
 let tokenRouter = express.Router();

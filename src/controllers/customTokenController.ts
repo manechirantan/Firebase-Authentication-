@@ -1,4 +1,4 @@
-import CustomToken from "../services/makeCustomTokenService.js";
+import CustomToken from "../services/customTokenService.js";
 import { Request, Response } from "express";
 
 export default class CustomTokenController {
