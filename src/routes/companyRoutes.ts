@@ -1,4 +1,4 @@
-import { CompanyController } from "../controllers/companyController.js";
+import CompanyController from "../controllers/companyController.js";
 
 import express from "express";
 import verify from "../middleware/middleware.js";

@@ -1,9 +1,8 @@
 import CompanyService from "../services/companyServices.js";
 import { Request, Response } from "express";
 import User from "../models/newUser.js";
-import { NUMBER } from "sequelize";
 
-export class CompanyController {
+export default class CompanyController {
   // to create the company by the logged in user
   static async createCompanyDb(req: Request, res: Response) {
     try {
