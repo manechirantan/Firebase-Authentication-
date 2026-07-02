@@ -1,7 +1,7 @@
 import CompanyService from "../services/companyServices.js";
 import { Request, Response } from "express";
 import User from "../models/newUser.js";
-
+import { NUMBER } from "sequelize";
 
 export class CompanyController {
   // to create the company by the logged in user
@@ -96,6 +96,20 @@ export class CompanyController {
       res.json(company);
     } catch (error) {
       return res.json(error);
+    }
+  }
+
+  // to see all coampnies of the user
+
+  static async seeAllCompanyDb(req: Request, res: Response) {
+    try {
+      console.log(req.user.uid);
+      let uid = req.user.uid;
+      console.log(typeof uid);
+      let company = await CompanyService.seeCompany(uid);
+      res.json(company);
+    } catch (error) {
+      res.json(error);
     }
   }
 }

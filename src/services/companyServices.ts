@@ -1,5 +1,6 @@
 import Company from "../models/companyModel.js";
 import Location from "../models/locations.js";
+import User from "../models/newUser.js";
 
 // to create company by the logged in user
 export default class CompanyService {
@@ -74,6 +75,25 @@ export default class CompanyService {
       return company;
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  // to see all coampnies of the user
+
+  static async seeCompany(uid: string) {
+    try {
+      console.log("runnig");
+      console.log(uid);
+      let user = await User.findOne({ where: { uid } });
+      console.log(user);
+
+      let userID = user?.id;
+      console.log(userID);
+
+      let company = await Company.findAll({ where: { Ownerid: userID } });
+      return company;
+    } catch (error) {
+      throw error;
     }
   }
 }

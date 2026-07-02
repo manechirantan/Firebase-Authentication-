@@ -20,4 +20,6 @@ companyRouter.get(
   CompanyController.seeCompanyDb,
 );
 
+companyRouter.get("/users/seecompany", CompanyController.seeAllCompanyDb);
+
 export default companyRouter;
