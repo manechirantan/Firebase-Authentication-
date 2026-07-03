@@ -1,6 +1,6 @@
+import User from "../models/newUser.js";
 import CompanyService from "../services/companyServices.js";
 import { Request, Response } from "express";
-import User from "../models/newUser.js";
 
 export default class CompanyController {
   // to create the company by the logged in user
