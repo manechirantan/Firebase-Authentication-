@@ -1,7 +1,8 @@
 import Company from "../models/companyModel.js";
 import Location from "../models/locations.js";
 import User from "../models/newUser.js";
-
+import { sequelize } from "../dbs/sequelize.js";
+import { Transaction } from "sequelize";
 
 // to create company by the logged in user
 export default class CompanyService {
@@ -18,43 +19,47 @@ export default class CompanyService {
     address2?: string,
   ) {
     try {
-      let [company, comCreated] = await Company.findOrCreate({
-        where: {
-          name,
-          Ownerid,
-        },
-        defaults: {
-          name,
-          dateOfIncorporation,
-          address,
-          state,
-          gstNumber,
-          description,
-          pincode,
-          Ownerid,
-        },
+      return await sequelize.transaction(async (transaction: Transaction) => {
+        let [company, comCreated] = await Company.findOrCreate({
+          where: {
+            name,
+            Ownerid,
+          },
+          defaults: {
+            name,
+            dateOfIncorporation,
+            address,
+            state,
+            gstNumber,
+            description,
+            pincode,
+            Ownerid,
+          },
+          transaction,
+        });
+        //database company is created
+        //compay.id
+        //create location, state, address,gstnumber,pincode, companyId
+        let companyId = company.id;
+        let system = true;
+        let [locat, locationCreate] = await Location.findOrCreate({
+          where: {
+            location,
+            companyId,
+          },
+          defaults: {
+            location,
+            system,
+            gstNumber,
+            pincode,
+            address2,
+            companyId,
+          },
+          transaction,
+        });
+        console.log(company);
+        return { company, locat, comCreated, locationCreate };
       });
-      //database company is created
-      //compay.id
-      //create location, state, address,gstnumber,pincode, companyId
-      let companyId = company.id;
-      let system = true;
-      let [locat, locationCreate] = await Location.findOrCreate({
-        where: {
-          location,
-          companyId,
-        },
-        defaults: {
-          location,
-          system,
-          gstNumber,
-          pincode,
-          address2,
-          companyId,
-        },
-      });
-      console.log(company);
-      return { company, locat, comCreated, locationCreate };
     } catch (error) {
       throw error;
     }
