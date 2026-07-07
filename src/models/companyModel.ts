@@ -57,7 +57,7 @@ Company.init(
       },
     },
   },
-  { sequelize, modelName: "company", paranoid: true },
+  { sequelize, modelName: "companies",tableName:"companies", paranoid: true },
 );
 
 User.hasMany(Company, {

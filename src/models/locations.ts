@@ -48,7 +48,7 @@ Location.init(
       },
     },
   },
-  { sequelize, modelName: "locations" },
+  { sequelize, modelName: "locations", tableName: "locations" },
 );
 
 Location.belongsTo(Company, {

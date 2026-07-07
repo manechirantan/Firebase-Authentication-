@@ -55,6 +55,7 @@ export default class CompanyService {
             address2,
             companyId,
           },
+          lock: true,
           transaction,
         });
         console.log(company);
