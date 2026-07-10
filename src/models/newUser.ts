@@ -32,10 +32,18 @@ User.init(
     address: {
       type: DataTypes.STRING,
     },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   },
   {
     sequelize,
-    modelName: "Nusers",
-    tableName:"Nusers"
+    modelName: "user",
+    tableName: "user",
   },
 );

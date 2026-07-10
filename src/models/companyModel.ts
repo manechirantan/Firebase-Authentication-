@@ -36,7 +36,7 @@ Company.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    gstNumber: {
+    gstnumber: {
       type: DataTypes.STRING,
       allowNull: true,
     },
@@ -56,8 +56,16 @@ Company.init(
         key: "id",
       },
     },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   },
-  { sequelize, modelName: "companies",tableName:"companies", paranoid: true },
+  { sequelize, modelName: "company", tableName: "company" },
 );
 
 User.hasMany(Company, {

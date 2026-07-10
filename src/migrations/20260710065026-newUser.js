@@ -1,11 +1,11 @@
 "use strict";
 
-const sequelize = require("sequelize");
+const { QueryError } = require("sequelize");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    queryInterface.createTable("Nusers", {
+    await queryInterface.createTable("user", {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -27,10 +27,18 @@ module.exports = {
       address: {
         type: Sequelize.STRING,
       },
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
     });
   },
 
   async down(queryInterface, Sequelize) {
-    queryInterface.dropTable("Nusers");
+    await queryInterface.dropTable("user");
   },
 };

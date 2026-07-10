@@ -32,11 +32,19 @@ Product.init(
         key: "id",
       },
     },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   },
   {
     sequelize,
-    modelName: "products",
-    tableName: "products",
+    modelName: "product",
+    tableName: "product",
   },
 );
 

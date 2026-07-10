@@ -47,8 +47,16 @@ Location.init(
         key: "id",
       },
     },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   },
-  { sequelize, modelName: "locations", tableName: "locations" },
+  { sequelize,modelName:"location", tableName: "location" },
 );
 
 Location.belongsTo(Company, {
