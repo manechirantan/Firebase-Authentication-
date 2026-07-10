@@ -2,7 +2,7 @@ import Company from "../models/companyModel.js";
 import Location from "../models/locations.js";
 import User from "../models/newUser.js";
 import { sequelize } from "../dbs/sequelize.js";
-import { Transaction } from "sequelize";
+import { Transaction, Op } from "sequelize";
 
 // to create company by the logged in user
 export default class CompanyService {
@@ -87,7 +87,7 @@ export default class CompanyService {
 
   // to see all coampnies of the user
 
-  static async seeCompany(uid: string) {
+  static async seeCompany(uid: string, search: string = "") {
     try {
       console.log("runnig");
       console.log(uid);
@@ -98,6 +98,12 @@ export default class CompanyService {
       console.log(userID);
 
       let company = await Company.findAll({ where: { Ownerid: userID } });
+      let newCompany = await Company.findAndCountAll({
+        where: {
+          Ownerid: userID,
+          ...(search && { name: { [Op.iLike]: `%${search}%` } }),
+        },
+      });
       return company;
     } catch (error) {
       throw error;

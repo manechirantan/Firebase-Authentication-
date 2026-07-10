@@ -34,6 +34,8 @@ export default class ProductService {
     page: number,
     offset: number,
     search: string = "",
+    sortby: string,
+    order: string,
   ) {
     try {
       let product = await Product.findAndCountAll({
@@ -41,6 +43,7 @@ export default class ProductService {
           locationId,
           ...(search && { productName: { [Op.iLike]: `%${search}%` } }),
         },
+        order: [[sortby, order]],
         limit,
         offset,
       });

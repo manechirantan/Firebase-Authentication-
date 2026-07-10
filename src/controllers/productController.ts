@@ -1,3 +1,4 @@
+import { or } from "sequelize";
 import ProductService from "../services/productService.js";
 import { Request, Response } from "express";
 
@@ -35,6 +36,8 @@ export default class ProductController {
       let limit = Number(req.query.limit) || 10;
       let page = Number(req.query.page) || 1;
       let search = req.query.search as string;
+      let sortby = req.query.sortby as string;
+      let order = req.query.order as string;
       let offset = (page - 1) * limit;
 
       if (!locationId) {
@@ -46,6 +49,8 @@ export default class ProductController {
         page,
         offset,
         search,
+        sortby,
+        order,
       );
 
       res.json(product);
