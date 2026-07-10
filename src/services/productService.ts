@@ -1,5 +1,5 @@
 import Product from "../models/products.js";
-
+import { Op } from "sequelize";
 export default class ProductService {
   // to add the new product on selected location id
   static async createProduct(
@@ -28,9 +28,22 @@ export default class ProductService {
 
   // to see the products from the selcted location
 
-  static async seeProduct(locationId: number) {
+  static async seeProduct(
+    locationId: number,
+    limit: number,
+    page: number,
+    offset: number,
+    search: string = "",
+  ) {
     try {
-      let product = await Product.findAll({ where: { locationId } });
+      let product = await Product.findAndCountAll({
+        where: {
+          locationId,
+          ...(search && { productName: { [Op.iLike]: `%${search}%` } }),
+        },
+        limit,
+        offset,
+      });
       return product;
     } catch (error) {
       console.log(error);

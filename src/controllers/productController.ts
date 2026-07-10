@@ -32,10 +32,21 @@ export default class ProductController {
   static async seeProductDb(req: Request, res: Response) {
     try {
       let locationId = Number(req.user.locationId);
+      let limit = Number(req.query.limit) || 10;
+      let page = Number(req.query.page) || 1;
+      let search = req.query.search as string;
+      let offset = (page - 1) * limit;
+
       if (!locationId) {
         return res.json({ message: "please selcet the comapny and location " });
       }
-      let product = await ProductService.seeProduct(locationId);
+      let product = await ProductService.seeProduct(
+        locationId,
+        limit,
+        page,
+        offset,
+        search,
+      );
 
       res.json(product);
     } catch (error) {
